@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vending Machine Catalogue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+       .item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+       .item h3 {
+            margin: 0;
+        }
+       .item p {
+            margin: 5px 0;
+        }
+       .cart {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
+       .cart h2 {
+            margin: 0;
+        }
+       .cart p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vending Machine Catalogue</h1>
+    <div id="items">
+        <!-- Items will be dynamically added here -->
+    </div>
+    <div class="cart">
+        <h2>Cart</h2>
+        <p>Total: $<span id="total">0</span></p>
+    </div>
+
+    <script>
+        const items = [
+            { name: 'Coke', price: 1.50 },
+            { name: 'Pepsi', price: 1.50 },
+            { name: 'Soda', price: 1.00 },
+            { name: 'Chips', price: 2.00 },
+            { name: 'Candy', price: 1.25 }
+        ];
+
+        function displayItems() {
+            const itemsDiv = document.getElementById('items');
+            items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `<h3>${item.name}</h3><p>$${item.price}</p>`;
+                itemsDiv.appendChild(itemDiv);
+            });
+        }
+
+        function addToCart(item) {
+            const cart = document.querySelector('.cart');
+            const total = document.getElementById('total');
+            const existingItems = cart.getElementsByClassName('item');
+            let newTotal = parseFloat(total.textContent.replace('$', ''));
+
+            if (existingItems.length > 0) {
+                existingItems[0].textContent = `Total: $${newTotal + item.price}`;
+            } else {
+                cart.innerHTML = `<h2>Cart</h2><p>Total: $${item.price}</p>`;
+            }
+        }
+
+        displayItems();
+    </script>
+</body>
+</html>
